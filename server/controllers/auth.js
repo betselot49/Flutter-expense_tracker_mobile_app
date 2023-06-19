@@ -3,7 +3,6 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const signUp = async (req, response) => {
-  console.log(req.body);
   try {
     const { username, password } = req.body;
     // Hash password
@@ -29,18 +28,20 @@ const signUp = async (req, response) => {
       const token = jwt.sign(payload, "secret-token-key");
 
       const query3 = `INSERT INTO balance (user_id) VALUES ("${id}")`;
-      connection.query(query3, (err, result) => {if(err){
-        return response.status(500).json({ error: "Internal server error" });
-      }})
+      connection.query(query3, (err, result) => {
+        if (err) {
+          return response.status(500).json({ error: "Internal server error" });
+        }
+      });
 
-
-      return response.status(200).json({id:result[0].id, username: username, token: token });
+      return response
+        .status(200)
+        .json({ id: result[0].id, username: username, token: token });
     });
   } catch (error) {
     return response.status(500).json({ error: error.message });
   }
 };
-
 
 const signIn = async (req, res) => {
   console.log(req.body);
@@ -76,7 +77,6 @@ const changePassword = async (req, res) => {
   try {
     const profileId = req.params.id;
     const { oldPassword, newPassword } = req.body;
-
     if (!oldPassword || !newPassword || !profileId) {
       return res
         .status(400)
@@ -125,7 +125,6 @@ const changePassword = async (req, res) => {
 const deleteAccount = (req, res) => {
   try {
     const profileId = req.params.id;
-    console.log("-------body", profileId);
     if (!profileId) {
       return res.status(400).json({ error: "Missing required fields" });
     }

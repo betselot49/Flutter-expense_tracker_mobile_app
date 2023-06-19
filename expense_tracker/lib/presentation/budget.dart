@@ -1,6 +1,5 @@
 import 'package:expense_tracker/application/auth/login/login_cubit.dart';
 import 'package:expense_tracker/application/expense_bloc/expense_bloc.dart';
-import 'package:expense_tracker/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -34,17 +33,24 @@ class _BudgetState extends State<Budget> {
             },
             child: const Icon(Icons.add)),
         appBar: AppBar(
+          backgroundColor: Colors.purple,
           title: const Text(
             "Expense Tracker",
+            style: TextStyle(
+                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400),
           ),
-          bottom: const TabBar(tabs: [
-            Tab(
-              text: "Monthly",
-            ),
-            Tab(
-              text: "Yearly",
-            )
-          ]),
+          bottom: const TabBar(
+              indicatorColor: Colors.white,
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.yellow,
+              tabs: [
+                Tab(
+                  text: "Monthly",
+                ),
+                Tab(
+                  text: "Yearly",
+                )
+              ]),
         ),
         body: const TabBarView(children: [
           TimeFrameBudget(timeFrame: "groupByMonth"),

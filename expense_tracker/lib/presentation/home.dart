@@ -29,8 +29,40 @@ class _HomeState extends State<Home> {
     return BlocBuilder<ExpenseBloc, ExpenseState>(
       builder: (context, state) {
         if (state is ExpenseInitial) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return DefaultTabController(
+            length: 3,
+            child: Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.purple,
+                  title: const Padding(
+                    padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                    child: Text(
+                      "Balance: 0\$",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  bottom: const TabBar(
+                      indicatorColor: Colors.white,
+                      labelColor: Colors.white,
+                      unselectedLabelColor: Colors.yellow,
+                      tabs: [
+                        Tab(
+                          text: "Daily",
+                        ),
+                        Tab(
+                          text: "Monthly",
+                        ),
+                        Tab(
+                          text: "Yearly",
+                        )
+                      ]),
+                ),
+                // body: const Center(child: CircularProgressIndicator()));
+                body: (const TabBarView(children: [
+                  Center(child: CircularProgressIndicator()),
+                  Center(child: CircularProgressIndicator()),
+                  Center(child: CircularProgressIndicator()),
+                ]))),
           );
         } else if (state is ExpenseError) {
           return const Center(
@@ -47,27 +79,42 @@ class _HomeState extends State<Home> {
                   },
                   child: const Icon(Icons.add)),
               appBar: AppBar(
-                title: Text("Balance - $balance"),
+                backgroundColor: Colors.purple,
+                title: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                  child: Text(
+                    "Balance:  $balance \$",
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
                 actions: [
                   IconButton(
                     icon: const Icon(Icons.logout),
+                    color: Colors.white,
                     onPressed: () {
                       BlocProvider.of<LoginCubit>(context).logout();
                       GoRouter.of(context).go("/");
                     },
                   )
                 ],
-                bottom: const TabBar(tabs: [
-                  Tab(
-                    text: "Daily",
-                  ),
-                  Tab(
-                    text: "Monthly",
-                  ),
-                  Tab(
-                    text: "Yearly",
-                  )
-                ]),
+                bottom: const TabBar(
+                    indicatorColor: Colors.white,
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.yellow,
+                    tabs: [
+                      Tab(
+                        text: "Daily",
+                      ),
+                      Tab(
+                        text: "Monthly",
+                      ),
+                      Tab(
+                        text: "Yearly",
+                      )
+                    ]),
               ),
               body: const TabBarView(children: [
                 TimeFrame(timeFrame: "groupByDay"),
@@ -77,7 +124,7 @@ class _HomeState extends State<Home> {
             ),
           );
         }
-        return Column();
+        return const Column();
       },
     );
   }
@@ -224,8 +271,8 @@ class _TimeFrameState extends State<TimeFrame> {
                                                       expense: expenseDetail));
                                             },
                                             icon: const Icon(Icons.delete),
-                                            color:
-                                                Color.fromARGB(255, 75, 12, 7),
+                                            color: const Color.fromARGB(
+                                                255, 75, 12, 7),
                                           )
                                         : Container(),
                                   ],
@@ -244,7 +291,41 @@ class _TimeFrameState extends State<TimeFrame> {
       } else if (state is ExpenseError) {
         return Center(child: Text(state.message));
       } else {
-        return const Center(child: CircularProgressIndicator());
+        return DefaultTabController(
+          length: 3,
+          child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.purple,
+                title: const Padding(
+                  padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                  child: Text(
+                    "Balance: 0\$",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                bottom: const TabBar(
+                    indicatorColor: Colors.white,
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.yellow,
+                    tabs: [
+                      Tab(
+                        text: "Daily",
+                      ),
+                      Tab(
+                        text: "Monthly",
+                      ),
+                      Tab(
+                        text: "Yearly",
+                      )
+                    ]),
+              ),
+              // body: const Center(child: CircularProgressIndicator()));
+              body: (const TabBarView(children: [
+                Center(child: CircularProgressIndicator()),
+                Center(child: CircularProgressIndicator()),
+                Center(child: CircularProgressIndicator()),
+              ]))),
+        );
       }
     });
   }

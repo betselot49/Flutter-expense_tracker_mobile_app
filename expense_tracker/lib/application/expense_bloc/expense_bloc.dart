@@ -22,6 +22,7 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
   FutureOr<void> starter(int id) async {
     List<ExpenseDto> expenses = await ExpenseFetcher.getExpense(id);
     List<BudgetDto> budgets = await ExpenseFetcher.getBudget(id);
+
     Map balance = await ExpenseFetcher.getBalance(id);
 
     Map dateIndexes = {"groupByDay": {}, "groupByMonth": {}, "groupByYear": {}};
@@ -29,7 +30,7 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     Map organizedBudget = organizeBudget(budgets, organized, dateIndexes);
     dividing(organized["groupByMonth"]);
     dividing(organized["groupByYear"]);
-
+    
     emit(ExpenseLoaded(
         expenses: organized, budgets: organizedBudget, balance: balance));
   }

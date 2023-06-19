@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:expense_tracker/application/expense_bloc/expense_bloc.dart';
 import 'package:expense_tracker/budget.dto.dart';
 import 'package:expense_tracker/expense.dto.dart';
 import 'package:expense_tracker/utils.dart';
@@ -12,14 +11,14 @@ class ExpenseFetcher {
         headers: {'Content-Type': 'application/json; charset=UTF-8'});
     if (result.statusCode == 200) {
       var json = jsonDecode(result.body);
-      print("========${json["expense"].runtimeType}");
+
       return {
         "expense": double.parse(json["expense"].toString()),
         "income": double.parse(json["income"].toString()),
-        "balance": double.parse(json["income"].toString()) - double.parse(json["expense"].toString())
+        "balance": double.parse(json["income"].toString()) -
+            double.parse(json["expense"].toString())
       };
     } else {
-      print("===========reeeee");
       throw Exception('Failed to load expense');
     }
   }
@@ -30,6 +29,7 @@ class ExpenseFetcher {
     if (result.statusCode == 200) {
       List json = jsonDecode(result.body);
       final expenses = json.map((e) => ExpenseDto.fromMap(e)).toList();
+
       return expenses;
     } else {
       throw Exception('Failed to load expense');

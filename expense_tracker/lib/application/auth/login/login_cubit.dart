@@ -92,8 +92,6 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<String> changePassowrd(oldPassword, newPassword, id) async {
-    if (state.status == LoginStatus.submitting) return '';
-    emit(state.copyWith(status: LoginStatus.submitting));
     try {
       bool result = await _fetcher.changePassword(
           oldPassword: oldPassword, newPassword: newPassword, id: id);
@@ -106,21 +104,6 @@ class LoginCubit extends Cubit<LoginState> {
       return error.toString().substring(10, error.toString().length);
     }
   }
-
-  // Future<void> editProfile(attribute, value, token) async {
-  //   if (state.status == LoginStatus.submitting) return;
-  //   emit(state.copyWith(status: LoginStatus.submitting));
-  //   try {
-  //     User user = await _authRepository.editProfile(attribute, value, token);
-
-  //     if (user != User.empty) {
-  //       await _authRepository.removeCachedUser();
-  //       await _authRepository.cacheUser(user);
-  //       emit(state.copyWith(status: LoginStatus.success, user: user));
-  //       return;
-  //     }
-  //   } catch (_) {}
-  // }
 
   Future<bool> deleteProfile(id) async {
     if (state.status == LoginStatus.submitting) return true;

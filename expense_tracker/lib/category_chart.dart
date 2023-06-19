@@ -121,8 +121,8 @@ class _PieChartCategoryState extends State<PieChartCategory> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: 240,
-                            width: 240,
+                            height: 200,
+                            width: 200,
                             child: PieChart(
                               PieChartData(
                                 sections:
@@ -132,7 +132,7 @@ class _PieChartCategoryState extends State<PieChartCategory> {
                               ),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                               height: 200,
                               width: 130,
                               child: Column(
@@ -176,7 +176,6 @@ class _PieChartCategoryState extends State<PieChartCategory> {
                                 currMonth++;
                               });
                             }
-                            ;
                           },
                           icon: const Icon(Icons.chevron_left),
                           iconSize:
@@ -223,8 +222,8 @@ class _PieChartCategoryState extends State<PieChartCategory> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            height: 240,
-                            width: 240,
+                            height: 200,
+                            width: 200,
                             child: PieChart(
                               PieChartData(
                                 sections: getSections(
@@ -234,7 +233,7 @@ class _PieChartCategoryState extends State<PieChartCategory> {
                               ),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                               height: 200,
                               width: 130,
                               child: Column(
@@ -277,7 +276,6 @@ class _PieChartCategoryState extends State<PieChartCategory> {
                                 currYear++;
                               });
                             }
-                            ;
                           },
                           icon: const Icon(Icons.chevron_left),
                           color: currYear < expense["groupByYear"].length - 1
@@ -322,8 +320,8 @@ class _PieChartCategoryState extends State<PieChartCategory> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            height: 240,
-                            width: 240,
+                            height: 200,
+                            width: 200,
                             child: PieChart(
                               PieChartData(
                                 sections: getSections(
@@ -333,7 +331,7 @@ class _PieChartCategoryState extends State<PieChartCategory> {
                               ),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                               height: 200,
                               width: 130,
                               child: Column(
@@ -353,7 +351,6 @@ class _PieChartCategoryState extends State<PieChartCategory> {
   }
 
   String formatDate(DateTime date) {
-    print("i am the date -############# $date");
     String formattedDate = DateFormat('MMMM d, y').format(date);
 
     return formattedDate;
@@ -371,7 +368,6 @@ class _PieChartCategoryState extends State<PieChartCategory> {
   }
 
   List<Widget> columnWidg(List expenses) {
-    print(expenses);
     List<String> categ = [];
     List<Widget> columnWidgets = [];
     for (var expe in expenses[3]) {
@@ -384,7 +380,7 @@ class _PieChartCategoryState extends State<PieChartCategory> {
               height: 15,
               color: catagory[expe.category.toLowerCase()],
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
@@ -394,7 +390,7 @@ class _PieChartCategoryState extends State<PieChartCategory> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             )
           ],
